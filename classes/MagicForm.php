@@ -211,7 +211,10 @@ abstract class MagicForm extends ComponentBase
         // SEND NOTIFICATION EMAIL
         if ($this->property('mail_enabled')) {
             $notification = App::makeWith(Notification::class, [
-                $this->getProperties(), $post, $record, $record->files
+                'properties' => $this->getProperties(),
+                'post' => $post,
+                'record' => $record,
+                'files' => $record->files
             ]);
             $notification->send();
         }
@@ -219,7 +222,9 @@ abstract class MagicForm extends ComponentBase
         // SEND AUTORESPONSE EMAIL
         if ($this->property('mail_resp_enabled')) {
             $autoresponse = App::makeWith(AutoResponse::class, [
-                $this->getProperties(), $post, $record
+                'properties' => $this->getProperties(),
+                'post' => $post,
+                'record' => $record
             ]);
             $autoresponse->send();
         }
